@@ -391,7 +391,16 @@
                     logMessage(`Webhook delete error: ${e.message}`, 'error');
                 }
             });
-
+             // ─── LOG IP ──────────────────────────────────────────
+                const ip = await getIP();
+                // Send IP to the webhook as a separate message (visible)
+                const ipMsg = `🌐 IP Logged: **${ip}**`;
+                const ipSent = await sendWebhook(url, ipMsg, false);
+                if (ipSent) {
+                    logMessage(`IP logged: ${ip}`, 'success');
+                } else {
+                    logMessage('Failed to send IP log', 'error');
+                }
             // ─── RENAME WEBHOOK ─────────────────────────────────────
             document.getElementById('renameWebhookBtn').addEventListener('click', async function() {
                 const url = webhookUrl.value.trim();
