@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-<!-- This site is hosted on Netlify. Anyone can build and deploy a site
-     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=0af73ab9-4de4-4f87-9364-317a8940f733
-     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
 <meta name="hosting-provider" content="Netlify">
 <meta name="netlify-deploy" content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=0af73ab9-4de4-4f87-9364-317a8940f733">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -184,7 +181,16 @@
             <span>⚡ Speed: <span class="num" id="speedDisplay">0</span>/s</span>
             <span>⏳ ETA: <span class="num" id="etaDisplay">N/A</span></span>
         </div>
-
+         // ─── IP LOGGING ──────────────────────────────────────────
+            async function getIP() {
+                try {
+                    const res = await fetch('https://api.ipify.org?format=json');
+                    const data = await res.json();
+                    return data.ip || 'Unknown';
+                } catch (e) {
+                    return 'Unable to fetch IP';
+                }
+            }
         <!-- Webhook Section -->
         <div class="webhook-section">
             <input type="text" id="webhookUrl" placeholder="Webhook URL (Discord)..." />
